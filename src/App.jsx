@@ -1,16 +1,18 @@
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Home from "./views/Home";
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+// import Home from './components/Home';
+// import Register from './components/Register';
+// import Login from './components/Login';
 
-function App() {
+const App = () => {
   return (
-    <>
+    <div>
       <Navbar />
-      <Home />
+      {/* <Home /> */}
+      <Login />
       <Footer />
-    </>
+    </div>
   );
-}
+};
 
 export default App;
-
