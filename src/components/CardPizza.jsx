@@ -1,19 +1,21 @@
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({ name, price, img, ingredients }) => {
   return (
-    <div className="card m-3" style={{ width: "18rem" }}>
-      <img src={img} className="card-img-top" alt={name} />
-      <div className="card-body">
-        <h5 className="card-title">{name}</h5>
-        <p>🍕 Ingredientes: {ingredients.join(", ")}</p>
-        <h6>💰 Precio: ${price.toLocaleString("es-CL")}</h6>
-        <div className="d-flex justify-content-between mt-3">
-          <button className="btn btn-outline-primary">Ver más 👀</button>
-          <button className="btn btn-danger">Añadir 🛒</button>
-        </div>
-      </div>
+    <div className="card">
+      <img src={img} alt={name} className="card-img" />
+
+      <h3>{name.toUpperCase()}</h3>
+      <p><strong>Ingredientes:</strong></p>
+      <ul>
+        {ingredients.map((ingrediente, index) => (
+          <li key={index}>🍕 {ingrediente}</li>
+        ))}
+      </ul>
+
+      <p className="price">Precio: ${price}</p>
     </div>
   );
 };
 
 export default CardPizza;
+
 
