@@ -1,8 +1,6 @@
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import Home from "./components/Home";
-// import LoginPage from "./components/LoginPage";
-// import RegisterPage from "./components/RegisterPage";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -15,5 +13,3 @@ const App = () => {
 };
 
 export default App;
-
-
