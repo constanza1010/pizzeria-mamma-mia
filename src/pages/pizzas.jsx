@@ -1,43 +1,34 @@
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { usePizzas } from "../context/PizzaContext";
+import { useCart } from "../context/CartContext";
 
 const Pizza = () => {
-  const [pizza, setPizza] = useState(null);
+  const { id } = useParams();
+  const { pizzas } = usePizzas();
+  const { addToCart } = useCart();
 
-  useEffect(() => {
-    const getPizza = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/pizzas/p001");
-        const data = await res.json();
-        setPizza(data);
-      } catch (error) {
-        console.error("Error cargando pizza:", error);
-      }
-    };
+  const pizza = pizzas.find((p) => p.id === id);
 
-    getPizza();
-  }, []);
-
-  if (!pizza) return <p>Cargando pizza...</p>;
+  if (!pizza) return <p>Cargando...</p>;
 
   return (
     <div className="pizza-detail">
-      <h2>{pizza.name}</h2>
       <img src={pizza.img} alt={pizza.name} />
-
+      <h2>{pizza.name}</h2>
       <p>{pizza.desc}</p>
 
-      <h3>Ingredientes:</h3>
+      <h3>${pizza.price.toLocaleString()}</h3>
+
       <ul>
-        {pizza.ingredients.map((ing, i) => (
-          <li key={i}>{ing}</li>
+        {pizza.ingredients.map((ing) => (
+          <li key={ing}>🍕 {ing}</li>
         ))}
       </ul>
 
-      <p className="price">Precio: ${pizza.price}</p>
-
-      <button>Añadir al carrito</button>
+      <button onClick={() => addToCart(pizza)}>Añadir al carrito</button>
     </div>
   );
 };
 
 export default Pizza;
+

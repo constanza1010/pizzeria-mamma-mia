@@ -1,28 +1,19 @@
+import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  return (
-    <nav
-      style={{
-        display: "flex",
-        gap: "20px",
-        padding: "15px",
-        backgroundColor: "#eee",
-      }}
-    >
-      <Link to="/">Home</Link>
-      <Link to="/register">Register</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/profile">Profile</Link>
+const Navbar = () => {
+  const { total } = useCart();
 
-      {/* El carrito */}
-      <Link
-        to="/cart"
-        style={{ marginLeft: "auto", fontWeight: "bold" }}
-      >
-        🛒 Total: $0
+  return (
+    <nav className="navbar">
+      <Link to="/">🍕 Pizzería Mamma Mia</Link>
+
+      <Link to="/cart" className="cart-btn">
+        🛒 Total: ${total.toLocaleString()}
       </Link>
     </nav>
   );
-}
+};
+
+export default Navbar;
 
