@@ -1,16 +1,26 @@
-import { useCart } from "../context/CartContext";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
-  const { total } = useCart();
+  const { token, logout } = useContext(UserContext);
 
   return (
-    <nav className="navbar">
-      <Link to="/">🍕 Pizzería Mamma Mia</Link>
+    <nav>
+      <button>Home</button>
 
-      <Link to="/cart" className="cart-btn">
-        🛒 Total: ${total.toLocaleString()}
-      </Link>
+      {token ? (
+        <>
+          <button>Profile</button>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <button>Login</button>
+          <button>Register</button>
+        </>
+      )}
+
+      <button>Total $...</button>
     </nav>
   );
 };

@@ -1,22 +1,36 @@
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Pizza from "./pages/Pizza";
-import Cart from "./pages/Cart";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-const App = () => {
+function App() {
   return (
-    <>
-      <Navbar />
-
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/pizza/:id" element={<Pizza />} />
-        <Route path="/cart" element={<Cart />} />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* si token = true → NO mostrar login/register */}
+        <Route
+          path="/login"
+          element={token ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={token ? <Navigate to="/" /> : <Register />}
+        />
       </Routes>
-    </>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
 
