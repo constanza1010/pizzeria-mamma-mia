@@ -2,20 +2,35 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Pizza = () => {
-  const { id } = useParams(); // 👈 obtiene el id de la URL
+  const { id } = useParams();
   const [pizza, setPizza] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getPizza = async () => {
-      const res = await fetch(`http://localhost:5000/api/pizzas/${id}`);
-      const data = await res.json();
-      setPizza(data);
+      try {
+        const res = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+
+        if (!res.ok) {
+          throw new Error("Error al cargar la pizza");
+        }
+
+        const data = await res.json();
+        setPizza(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getPizza();
   }, [id]);
 
-  if (!pizza) return <p>Cargando...</p>;
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>{error}</p>;
+  if (!pizza) return <p>No se encontró la pizza.</p>;
 
   return (
     <div>
@@ -28,4 +43,3 @@ const Pizza = () => {
 };
 
 export default Pizza;
-

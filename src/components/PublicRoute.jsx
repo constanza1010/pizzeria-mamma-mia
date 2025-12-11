@@ -2,15 +2,11 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-const ProtectedRoute = ({ children }) => {
+export default function PublicRoute({ children }) {
   const { token } = useContext(UserContext);
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  if (token) return <Navigate to="/profile" />;
 
   return children;
-};
-
-export default ProtectedRoute;
+}
 
