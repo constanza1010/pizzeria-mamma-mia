@@ -1,26 +1,24 @@
+/* eslint-disable react-refresh/only-export-components */
+// src/context/UserContext.jsx
+
 import { createContext, useState } from "react";
 
-export const UserContext = createContext({
-  token: null,
-  login: () => {},
-  logout: () => {}
-});
+// Valor por defecto SIN funciones internas (evita el error de Vite)
+export const UserContext = createContext(null);
 
-export const UserProvider = ({ children }) => {
-  const [token, setToken] = useState(null); // valor por defecto
+export function UserProvider({ children }) {
+  const [token, setToken] = useState(false);
 
-  const login = (tokenValue) => {
-    setToken(tokenValue); // debe recibir un string
-  };
+  const login = () => setToken(true);
+  const logout = () => setToken(false);
 
-  const logout = () => {
-    setToken(null); // debe quedar null
-  };
+  const value = { token, login, logout };
 
   return (
-    <UserContext.Provider value={{ token, login, logout }}>
+    <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
   );
-};
+}
+
 
