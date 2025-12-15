@@ -7,10 +7,7 @@ const Cart = () => {
   return (
     <div>
       <h1>Carrito</h1>
-
-      <button disabled={!token}>
-        {token ? "Pagar" : "Inicia sesión para pagar"}
-      </button>
+      <button disabled={!token}>Pagar</button>
     </div>
   );
 };

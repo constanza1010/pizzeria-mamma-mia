@@ -1,17 +1,24 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./context/UserContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Pizza from "./pages/Pizza";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
-import ProtectedRoute from "./components/ProtectedRoute";
-import PublicRoute from "./components/PublicRoute";
+import Cart from "./pages/Cart";
 
 function App() {
+  const { token } = useContext(UserContext);
+
   return (
-    <BrowserRouter>
+    <>
+      {/* NAVBAR SIEMPRE VISIBLE */}
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pizza/:id" element={<Pizza />} />
@@ -27,23 +34,17 @@ function App() {
 
         <Route
           path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
+          element={token ? <Navigate to="/" /> : <Login />}
         />
 
         <Route
           path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
+          element={token ? <Navigate to="/" /> : <Register />}
         />
+
+        <Route path="/cart" element={<Cart />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 

@@ -1,43 +1,27 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { token, logout } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login"); // requisito del hito
-  };
 
   return (
     <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+      <Link to="/">Home</Link>
 
       {token ? (
         <>
-          <Link to="/profile">
-            <button>Profile</button>
-          </Link>
-
-          <button onClick={handleLogout}>Logout</button>
+          <Link to="/profile">Profile</Link>
+          <button onClick={logout}>Logout</button>
         </>
       ) : (
         <>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-
-          <Link to="/register">
-            <button>Register</button>
-          </Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
         </>
       )}
 
-      <button>Total $...</button>
+      <span>Total $...</span>
     </nav>
   );
 };
