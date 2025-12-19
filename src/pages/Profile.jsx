@@ -1,10 +1,16 @@
-export default function Profile() {
+import { useUser } from "../context/UserContext";
+
+const Profile = () => {
+  const { email, logout } = useUser();
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Perfil del usuario</h2>
-      <p>Email: usuario@ejemplo.com</p>
-      <button>Cerrar sesión</button>
+    <div>
+      <h2>Perfil</h2>
+      <p>Email: {email}</p>
+      <button onClick={logout}>Cerrar sesión</button>
     </div>
   );
-}
+};
+
+export default Profile;
 

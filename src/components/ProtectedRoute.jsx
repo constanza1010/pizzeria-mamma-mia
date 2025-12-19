@@ -1,11 +1,15 @@
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const { token } = useContext(UserContext);
+  const { token } = useUser();
 
-  return token ? children : <Navigate to="/login" />;
+  if (!token) {
+    // Si no hay token, redirige a login
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

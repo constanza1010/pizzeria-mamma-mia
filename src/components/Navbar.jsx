@@ -1,13 +1,17 @@
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+import { usePizzas } from "../context/PizzaContext";
 
 const Navbar = () => {
-  const { token, logout } = useContext(UserContext);
+  const { token, logout } = useUser();
+  const { total } = usePizzas();
 
   return (
-    <nav>
+    <nav style={{ padding: "10px", display: "flex", gap: "15px" }}>
       <Link to="/">Home</Link>
+
+      {/* 👉 Carrito SIEMPRE visible */}
+      <Link to="/cart">🛒 Carrito (${total})</Link>
 
       {token ? (
         <>
@@ -20,8 +24,6 @@ const Navbar = () => {
           <Link to="/register">Register</Link>
         </>
       )}
-
-      <span>Total $...</span>
     </nav>
   );
 };

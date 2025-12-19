@@ -6,13 +6,14 @@ import { UserProvider } from "./context/UserContext";
 import { PizzaProvider } from "./context/PizzaContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <UserProvider>
-      <PizzaProvider>
-        <App />
-      </PizzaProvider>
-    </UserProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <UserProvider>
+        <PizzaProvider>
+          <App />
+        </PizzaProvider>
+      </UserProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
-
 

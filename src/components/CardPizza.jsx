@@ -1,29 +1,26 @@
-import { Link } from "react-router-dom";
+import { usePizzas } from "../context/PizzaContext";
 
 const CardPizza = ({ pizza }) => {
+  const { addToCart } = usePizzas();
+
   return (
-    <div className="card">
-      <img src={pizza.img} alt={pizza.name} />
-      <h3>{pizza.name}</h3>
-      <p>Ingredientes:</p>
+    <div className="card h-100">
+      <img src={pizza.img} className="card-img-top" alt={pizza.name} />
+      <div className="card-body">
+        <h5 className="card-title">{pizza.name}</h5>
+        <p>${pizza.price}</p>
 
-      <ul>
-        {pizza.ingredients.map((ingredient, index) => (
-          <li key={index}>🍕 {ingredient}</li>
-        ))}
-      </ul>
-
-      <p>
-        <strong>${pizza.price}</strong>
-      </p>
-
-      <div className="buttons">
-        <Link to={`/pizza/${pizza.id}`}>
-          <button>Ver más</button>
-        </Link>
+        <button
+          className="btn btn-primary"
+          onClick={() => addToCart(pizza)}
+        >
+          Agregar 🛒
+        </button>
       </div>
     </div>
   );
 };
 
 export default CardPizza;
+
+

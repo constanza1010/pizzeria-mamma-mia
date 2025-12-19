@@ -6,23 +6,19 @@ const Pizza = () => {
   const [pizza, setPizza] = useState(null);
 
   useEffect(() => {
-    const fetchPizza = async () => {
-      const res = await fetch(`http://localhost:5000/api/pizzas/${id}`);
-      const data = await res.json();
-      setPizza(data);
-    };
-
-    fetchPizza();
+    fetch(`http://localhost:5000/api/pizzas/${id}`)
+      .then(res => res.json())
+      .then(data => setPizza(data));
   }, [id]);
 
   if (!pizza) return <p>Cargando...</p>;
 
   return (
     <div>
-      <h1>{pizza.name}</h1>
-      <img src={pizza.img} alt={pizza.name} />
+      <h2>{pizza.name}</h2>
+      <img src={pizza.img} alt={pizza.name} width="300" />
       <p>{pizza.desc}</p>
-      <p>${pizza.price}</p>
+      <p>🍕 Precio: ${pizza.price}</p>
     </div>
   );
 };
